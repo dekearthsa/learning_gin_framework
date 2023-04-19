@@ -11,16 +11,23 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func GetUserInfo(c *gin.Context) {
+func FindingUser(c *gin.Context) {
+	var res model.UserFilter
+	var userData model.Users
+
+	if err := c.BindJSON(&res); err != nil {
+		log.Fatal(err)
+	}
+
 	ctx, _ := context.WithTimeout(context.Background(), time.Second)
 	client, err := connection.Connect()
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	userCollection := client.Database("test").Collection("users")
-	filterUser := bson.D{{"Firstname", "Earth"}}
-	var userData model.Users
-	err = userCollection.FindOne(context.TODO(), filterUser).Decode(&userData)
+	setFilter := bson.D{{"Firstname", res.Firstname}}
+	err = userCollection.FindOne(context.TODO(), setFilter).Decode(&userData)
 	if err != nil {
 		log.Fatal(err)
 	}

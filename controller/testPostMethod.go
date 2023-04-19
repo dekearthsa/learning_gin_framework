@@ -2,6 +2,7 @@ package controller
 
 import (
 	"learning_gin_framework/model"
+
 	"github.com/gin-gonic/gin"
 )
 

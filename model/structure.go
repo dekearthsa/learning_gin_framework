@@ -12,3 +12,7 @@ type Users struct {
 	Email     string
 	Password  string
 }
+
+type UserFilter struct {
+	Firstname string
+}

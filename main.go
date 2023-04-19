@@ -11,8 +11,7 @@ const port string = ":9888"
 
 func main() {
 
-	router := gin.Default()
-
+	router := gin.New()
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
@@ -25,9 +24,14 @@ func main() {
 	})
 
 	router.GET("/getUser", controller.GetUserInfo)
+
+	// ทดลอง POST ไป ตาม username ต่อกับ database เพื่อหาชื่อ user //
+	router.POST("/findUser", controller.FindingUser)
+	// ทดลอง POST ไป ต่อกับ database เพื่อสร้าง user //
+	router.POST("/createUser", controller.CreateUser)
+
 	router.POST("/add/member", controller.TestPostMethod)
 
-	
 	err := router.Run(port)
 	if err != nil {
 		panic("[Error] failed to start Gin server due to: " + err.Error())
