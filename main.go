@@ -12,6 +12,8 @@ const port string = ":9888"
 func main() {
 
 	router := gin.New()
+	protected := router.Group("/")
+
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
@@ -29,8 +31,8 @@ func main() {
 	router.POST("/findUser", controller.FindingUser)
 	// ทดลอง POST ไป ต่อกับ database เพื่อสร้าง user //
 	router.POST("/createUser", controller.CreateUser)
-
 	router.POST("/add/member", controller.TestPostMethod)
+	router.POST("/login")
 
 	err := router.Run(port)
 	if err != nil {

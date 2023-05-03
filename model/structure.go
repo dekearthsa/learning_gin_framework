@@ -1,5 +1,7 @@
 package model
 
+import "github.com/golang-jwt/jwt"
+
 type Member struct {
 	Name  string
 	Age   int
@@ -15,4 +17,14 @@ type Users struct {
 
 type UserFilter struct {
 	Firstname string
+}
+
+type LoginFilter struct {
+	Email    string
+	Password string
+}
+
+type StructEncodeToken struct {
+	Email string
+	jwt.RegisteredClaims
 }
